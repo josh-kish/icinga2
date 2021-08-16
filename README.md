@@ -4,7 +4,7 @@
 
 Clone the repository and create a file `secrets_sql.env`, which contains the `MYSQL_ROOT_PASSWORD` variable.
 
-    git clone https://github.com/jjethwa/icinga2.git
+    git clone https://github.com/josh-kish/icinga2.git
     cd icinga2
     echo "MYSQL_ROOT_PASSWORD=<password>" > secrets_sql.env
     docker-compose up
