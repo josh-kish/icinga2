@@ -1,13 +1,13 @@
 version: '2'
 services:
   icinga2:
-    #image: jordan/icinga2
     build:
       context: ./
       dockerfile: Dockerfile
+    container_name: Icinga2
     restart: on-failure:5
     # Set your hostname to the FQDN under which your
-    # sattelites will reach this container
+    # satellites will reach this container
     hostname: icinga2
     env_file:
       - secrets_sql.env
@@ -25,6 +25,8 @@ services:
       #- ICINGAWEB2_ADMIN_PASS=icinga
       #- ICINGA2_USER_FULLNAME=Icinga2 Docker Monitoring Instance
       - DEFAULT_MYSQL_HOST=mysql
+      - DEFAULT_MYSQL_PASS=Homebase1
+      - MYSQL_ROOT_PASSWORD=hombase
     volumes:
       - ./data/icinga/cache:/var/cache/icinga2
       - ./data/icinga/certs:/etc/apache2/ssl
@@ -63,8 +65,12 @@ services:
   mysql:
     image: mariadb
     container_name: mysql
+    restart: always
     env_file:
       - secrets_sql.env
+    environment:
+      - DEFAULT_MYSQL_PASS=Homebase1
+      - MYSQL_ROOT_PASSWORD=hombase
     volumes:
       - ./data/mysql/data:/var/lib/mysql
       # If you have previously used the container's internal DB use:
